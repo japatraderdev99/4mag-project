@@ -85,7 +85,7 @@ export default function Gallery() {
   }, [])
 
   return (
-    <section ref={containerRef} className="relative bg-ink text-paper py-32 overflow-hidden">
+    <section ref={containerRef} className="relative bg-ink text-paper py-16 sm:py-24 lg:py-32 overflow-hidden">
       
       {/* Parallax Background Elements */}
       <motion.div 
@@ -104,12 +104,12 @@ export default function Gallery() {
         </motion.div>
       </motion.div>
 
-      <div className="max-w-8xl mx-auto px-6 lg:px-12">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12">
         
         {/* Editorial Header */}
         <motion.div 
           ref={headerRef}
-          className="mb-24 max-w-4xl mx-auto text-center"
+          className="mb-12 sm:mb-16 lg:mb-24 max-w-4xl mx-auto text-center px-4"
           style={{ y: headerY }}
         >
           <motion.div 
@@ -123,35 +123,36 @@ export default function Gallery() {
           </motion.div>
           
           <motion.h2 
-            className="text-[clamp(3rem,8vw,8rem)] font-black leading-[0.75] tracking-[-0.02em] mb-8"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
+            className="text-[clamp(2.5rem,8vw,8rem)] font-black leading-[0.8] tracking-[-0.02em] mb-6 sm:mb-8"
+            style={{ fontFamily: "'Crimson Text', serif" }}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Featured
-            <br />
-            <span className="text-red">Work</span>
+            <span className="block sm:inline">Featured</span>
+            <br className="sm:hidden" />
+            <span className="text-red"> Work</span>
           </motion.h2>
           
           <motion.div
-            className="flex items-center justify-center gap-6"
+            className="flex items-center justify-center gap-3 sm:gap-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <div className="h-px bg-red flex-1 max-w-16" />
-            <p className="font-mono text-sm uppercase tracking-[0.25em] text-muted px-6">
-              From the Underground × 4 The Culture
+            <div className="h-px bg-red flex-1 max-w-8 sm:max-w-16" />
+            <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-[0.25em] text-muted px-3 sm:px-6 text-center">
+              <span className="hidden sm:inline">From the Underground × 4 The Culture</span>
+              <span className="sm:hidden">Underground × Culture</span>
             </p>
-            <div className="h-px bg-red flex-1 max-w-16" />
+            <div className="h-px bg-red flex-1 max-w-8 sm:max-w-16" />
           </motion.div>
         </motion.div>
 
         {/* Enhanced Gallery Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
           {galleryImages.map((image, index) => (
             <motion.article
               key={index}
@@ -161,7 +162,7 @@ export default function Gallery() {
             >
               
               {/* Image Container */}
-              <div className="gallery-image relative overflow-hidden mb-8">
+              <div className="gallery-image relative overflow-hidden mb-6 sm:mb-8">
                 <div className="aspect-[4/5] relative overflow-hidden bg-ink/50 backdrop-blur-sm">
                   <Image
                     src={image.src}
@@ -195,16 +196,16 @@ export default function Gallery() {
                   </motion.div>
                   
                   {/* Content Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <div className="space-y-3">
-                      <h3 className="font-mono text-lg uppercase tracking-[0.2em] text-red font-black">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8 transform translate-y-2 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="space-y-2 sm:space-y-3">
+                      <h3 className="font-mono text-sm sm:text-base lg:text-lg uppercase tracking-[0.15em] sm:tracking-[0.2em] text-red font-black">
                         {image.title}
                       </h3>
-                      <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted">
+                      <p className="font-mono text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-muted">
                         {image.subtitle}
                       </p>
                       <motion.p 
-                        className="text-sm leading-relaxed text-paper/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"
+                        className="text-xs sm:text-sm leading-relaxed text-paper/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"
                         initial={false}
                       >
                         {image.description}
@@ -215,7 +216,7 @@ export default function Gallery() {
               </div>
 
               {/* Editorial Details */}
-              <div className="gallery-title space-y-4">
+              <div className="gallery-title space-y-3 sm:space-y-4">
                 <motion.div 
                   className="flex items-center gap-4"
                   whileHover={{ x: 4 }}
@@ -250,15 +251,15 @@ export default function Gallery() {
 
         {/* Editorial Statement */}
         <motion.div 
-          className="mt-32 max-w-4xl mx-auto text-center"
+          className="mt-16 sm:mt-24 lg:mt-32 max-w-4xl mx-auto text-center px-4"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="space-y-8">
-            <div className="font-mono text-sm uppercase tracking-[0.25em] text-muted leading-relaxed">
-              <p className="mb-4">
+          <div className="space-y-6 sm:space-y-8">
+            <div className="font-mono text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.25em] text-muted leading-relaxed">
+              <p className="mb-3 sm:mb-4">
                 Every image tells a story of resistance, creativity, and culture.
               </p>
               <p>
@@ -267,22 +268,22 @@ export default function Gallery() {
             </div>
             
             <motion.div 
-              className="flex items-center justify-center gap-8"
+              className="flex items-center justify-center gap-4 sm:gap-8"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
             >
               <motion.div 
-                className="h-px bg-gradient-to-r from-transparent via-red to-transparent flex-1 max-w-24"
+                className="h-px bg-gradient-to-r from-transparent via-red to-transparent flex-1 max-w-12 sm:max-w-24"
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 transition={{ duration: 1.2 }}
                 viewport={{ once: true }}
               />
-              <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-red border border-red/30 px-6 py-3 backdrop-blur-sm">
+              <div className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.3em] text-red border border-red/30 px-3 sm:px-6 py-2 sm:py-3 backdrop-blur-sm">
                 500 Copies Only
               </div>
               <motion.div 
-                className="h-px bg-gradient-to-l from-transparent via-red to-transparent flex-1 max-w-24"
+                className="h-px bg-gradient-to-l from-transparent via-red to-transparent flex-1 max-w-12 sm:max-w-24"
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 transition={{ duration: 1.2, delay: 0.1 }}
