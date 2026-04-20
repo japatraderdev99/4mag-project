@@ -127,7 +127,7 @@ export default function Subscribe() {
       {/* Simple Background */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/Water-Leaf-Mavericks.JPEG"
+          src="/images/water-leaf.jpg"
           alt="Background"
           fill
           className="object-cover opacity-8 grayscale"

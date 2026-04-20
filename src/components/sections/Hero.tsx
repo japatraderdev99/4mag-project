@@ -7,9 +7,9 @@ import gsap from 'gsap'
 import Image from 'next/image'
 
 const mobileImages = [
-  '/images/hero-mobile1.JPEG',
-  '/images/hero-mobile2.PNG', 
-  '/images/hero-mobile3.JPEG'
+  '/images/hero-mobile1.jpg',
+  '/images/hero-mobile2.jpg',
+  '/images/hero-mobile3.jpg'
 ]
 
 export default function Hero() {

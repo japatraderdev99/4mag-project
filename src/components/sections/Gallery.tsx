@@ -13,21 +13,21 @@ if (typeof window !== 'undefined') {
 
 const galleryImages = [
   {
-    src: '/images/hash-art2.png',
+    src: '/images/hash-art2.jpg',
     alt: 'Hash Art Collection',
     title: '[hashart]',
     subtitle: 'Collection 02',
     description: 'Underground street art meets cannabis culture in this explosive visual journey through São Paulo\'s art scene.'
   },
   {
-    src: '/images/ZAZA - MAULA 03.PNG',
+    src: '/images/zaza-maula.jpg',
     alt: 'ZAZA Maula',
     title: 'ZAZA',
     subtitle: 'Maula 03',
     description: 'An intimate portrait of Brazil\'s emerging cannabis culture and the artists who shape its visual identity.'
   },
   {
-    src: '/images/LONG CURATED 02 Dry Sift Melt Gang x Gas Close-Up Detail.PNG',
+    src: '/images/long-curated.jpg',
     alt: 'Long Curated',
     title: 'CURATED',
     subtitle: 'Dry Sift Detail',
