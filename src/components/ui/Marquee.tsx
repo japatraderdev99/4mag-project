@@ -1,11 +1,11 @@
 export default function Marquee() {
-  const content = "4MAG · ART PRINTED MAGAZINE · [ HASHART EXPOSITION ] · CANNABIS CULTURE · STREET ART · SÃO PAULO → BERLIN → COLOMBIA · PRINT IS NOT DEAD · UNDERGROUND MOVEMENT · LIMITED EDITION #001"
-  
+  const content = "4MAG · Art Printed Magazine · [ HashArt Exposition ] · Cannabis Culture · Street Art · São Paulo → Berlin → Colombia · Print is not dead · Underground Movement · Limited Edition #001"
+
   return (
-    <section className="bg-red text-paper py-4 overflow-hidden">
+    <section className="bg-paper text-ink py-3.5 overflow-hidden border-t border-b border-ink/10">
       <div className="relative">
         <div className="flex animate-marquee whitespace-nowrap">
-          <div className="font-mono text-[12px] uppercase tracking-widest flex-shrink-0 py-1">
+          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/50 flex-shrink-0 py-0.5">
             {content} · {content} · {content} ·&nbsp;
           </div>
         </div>

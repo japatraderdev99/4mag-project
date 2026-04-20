@@ -14,66 +14,43 @@ const mobileImages = [
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
+  const contentRef  = useRef<HTMLDivElement>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start']
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100])
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const y       = useTransform(scrollYProgress, [0, 1], [0, -80])
+  const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
 
-  // Check if mobile and setup slideshow
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    
-    return () => window.removeEventListener('resize', checkMobile)
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
   }, [])
 
-  // Mobile slideshow logic
   useEffect(() => {
     if (!isMobile) return
-    
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % mobileImages.length)
-    }, 4000) // Change image every 4 seconds
-    
+      setCurrentImageIndex(prev => (prev + 1) % mobileImages.length)
+    }, 4000)
     return () => clearInterval(interval)
   }, [isMobile])
 
   useGSAP(() => {
-    const tl = gsap.timeline({ delay: 0.5 })
-    
-    // Set initial states
-    gsap.set(contentRef.current, { opacity: 0, y: 30 })
-
-    const matchMedia = gsap.matchMedia()
-
-    matchMedia.add("(prefers-reduced-motion: no-preference)", () => {
-      tl.to(contentRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power3.out"
-      })
+    gsap.set(contentRef.current, { opacity: 0, y: 24 })
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.to(contentRef.current, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.4 })
     })
-
-    matchMedia.add("(prefers-reduced-motion: reduce)", () => {
+    mm.add('(prefers-reduced-motion: reduce)', () => {
       gsap.set(contentRef.current, { opacity: 1, y: 0 })
     })
-
-    return () => {
-      tl.kill()
-      matchMedia.revert()
-    }
+    return () => mm.revert()
   }, [])
 
   return (
@@ -82,10 +59,9 @@ export default function Hero() {
       className="min-h-screen bg-ink text-paper relative flex items-center justify-center"
       style={{ opacity }}
     >
-      {/* Responsive Background */}
+      {/* Background */}
       <div className="absolute inset-0 z-0">
         {isMobile ? (
-          // Mobile Slideshow
           <div className="relative w-full h-full">
             <AnimatePresence mode="wait">
               <motion.div
@@ -93,118 +69,105 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1 }}
+                transition={{ duration: 1.2 }}
                 className="absolute inset-0"
               >
                 <Image
                   src={mobileImages[currentImageIndex]}
-                  alt={`4MAG - Mobile Background ${currentImageIndex + 1}`}
+                  alt={`4MAG – Background ${currentImageIndex + 1}`}
                   fill
-                  className="object-cover opacity-25"
+                  className="object-cover opacity-20"
                   priority={currentImageIndex === 0}
                 />
               </motion.div>
             </AnimatePresence>
-            
-            {/* Slideshow Indicators */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-              {mobileImages.map((_, index) => (
+            {/* Slideshow dots */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              {mobileImages.map((_, i) => (
                 <button
-                  key={index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex 
-                      ? 'bg-red w-8' 
-                      : 'bg-paper/30 hover:bg-paper/50'
+                  key={i}
+                  onClick={() => setCurrentImageIndex(i)}
+                  className={`h-px transition-all duration-300 ${
+                    i === currentImageIndex ? 'w-8 bg-paper' : 'w-3 bg-paper/30'
                   }`}
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={`Slide ${i + 1}`}
                 />
               ))}
             </div>
           </div>
         ) : (
-          // Desktop Static Image
           <Image
             src="/images/hero-test.jpg"
-            alt="4MAG - Hero Background"
+            alt="4MAG – Hero"
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-15"
             priority
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/90 to-ink/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/88 to-ink/60" />
       </div>
 
-      <motion.div 
+      <motion.div
         ref={contentRef}
-        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 text-center"
+        className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16 py-20 sm:py-28"
         style={{ y }}
       >
-        {/* Clean Logo Presentation */}
-        <div className="mb-8 sm:mb-12">
+        {/* Logo */}
+        <div className="mb-10 sm:mb-14">
           <Image
             src="/IDV/4MAG LOGO WHITE.png"
-            alt="4MAG - Art Printed Magazine"
-            width={600}
-            height={150}
-            className="w-full max-w-xs sm:max-w-md lg:max-w-2xl h-auto mx-auto"
+            alt="4MAG"
+            width={520}
+            height={130}
+            className="w-full max-w-[200px] sm:max-w-xs lg:max-w-sm h-auto"
             priority
           />
         </div>
-        
-        {/* Clear Value Proposition */}
-        <div className="space-y-6 sm:space-y-8 mb-8 sm:mb-12">
-          <h1 className="text-[clamp(1.25rem,5vw,2.5rem)] font-light leading-tight tracking-tight max-w-2xl mx-auto px-4">
-            <span className="block">In a world that scrolls,</span>
-            <span className="text-red font-black">we print.</span>
-          </h1>
-          
-          <p className="text-base sm:text-lg text-muted max-w-xl mx-auto leading-relaxed px-4">
-            Independent art magazine celebrating cannabis culture, street art, and underground movements across São Paulo, Berlin, and Colombia.
-          </p>
-        </div>
 
-        {/* Clear Call-to-Action */}
-        <div className="space-y-6 px-4">
+        {/* Label */}
+        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-sand mb-6">
+          Cannabis Culture Publisher · Issue 001
+        </p>
+
+        {/* Headline */}
+        <h1 className="text-[clamp(1.9rem,5.5vw,4.2rem)] font-bold leading-[1.05] tracking-[-0.025em] max-w-xl mb-5">
+          4 the Culture.<br />
+          <span className="font-[200] text-paper/60">From Lab to Print.</span>
+        </h1>
+
+        {/* Sub */}
+        <p className="text-sm sm:text-base text-paper/45 max-w-sm leading-relaxed font-[200] mb-10">
+          Independent art magazine. Cannabis culture,<br className="hidden sm:block" />
+          street art, underground movements.<br />
+          São Paulo · Berlin · Colombia
+        </p>
+
+        {/* CTA */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <motion.a
             href="#newsletter"
-            className="inline-flex items-center gap-2 sm:gap-3 bg-red text-paper px-6 sm:px-8 py-3 sm:py-4 font-mono text-xs sm:text-sm uppercase tracking-[0.2em] transition-all duration-300 hover:bg-red/90 hover:scale-105 rounded-sm"
+            className="inline-flex items-center gap-3 bg-paper text-ink px-7 py-3.5 font-sans font-bold text-xs uppercase tracking-[0.15em] transition-colors duration-300 hover:bg-sand hover:text-paper"
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.98 }}
-            data-cursor-magnetic
           >
-            <span className="hidden sm:inline">Get Issue #001</span>
-            <span className="sm:hidden">Get Issue #001</span>
+            Get Issue #001
             <motion.span
               animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
             >
               →
             </motion.span>
           </motion.a>
-          
-          {/* Edition Info */}
-          <div className="flex items-center justify-center gap-3 sm:gap-6 lg:gap-8 text-xs sm:text-sm font-mono uppercase tracking-[0.1em] sm:tracking-[0.2em] text-muted flex-wrap">
-            <span>Limited Edition</span>
-            <span className="w-px h-3 sm:h-4 bg-muted/30" />
-            <span>500 Copies</span>
-            <span className="w-px h-3 sm:h-4 bg-muted/30" />
-            <span className="text-red">Available Now</span>
+
+          <div className="flex items-center gap-3 text-[10px] font-mono uppercase tracking-[0.2em] text-paper/30">
+            <span>Limited</span>
+            <span>·</span>
+            <span>500 copies</span>
+            <span>·</span>
+            <span className="text-sand/70">(2026)</span>
           </div>
         </div>
       </motion.div>
-
-      {/* Subtle Grain Texture */}
-      <div className="absolute inset-0 z-20 pointer-events-none opacity-[0.08] mix-blend-mode-overlay">
-        <div 
-          style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(240,235,224,0.4) 1px, transparent 0)',
-            backgroundSize: '32px 32px',
-            width: '100%',
-            height: '100%'
-          }}
-        />
-      </div>
     </motion.section>
   )
 }

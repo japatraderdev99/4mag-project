@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --ink: #0D0D0D;
-  --paper: #F0EBE0;
-  --red: #C8001E;
-  --muted: #5A5A5A;
+  /* 4MAG Brand Palette — extracted from IDV brand materials */
+  --ink:   #1A1714;   /* warm near-black, not pure */
+  --paper: #E9E3D6;   /* linen cream, warm */
+  --sand:  #A09688;   /* khaki/sand from logo variants */
+  --red:   #7D2218;   /* deep burgundy-rust (Colombia expedition) */
+  --muted: #7A7265;   /* warm stone gray */
 }
 
 * {
@@ -18,13 +18,15 @@
 body {
   background: var(--ink);
   color: var(--paper);
-  font-family: 'Inter', system-ui, sans-serif;
-  line-height: 1.6;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-weight: 200;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: none;
 }
 
+/* Subtle grain overlay */
 body::before {
   content: '';
   position: fixed;
@@ -32,51 +34,55 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
   pointer-events: none;
   z-index: 9999;
 }
 
 @media (pointer: coarse) {
-  body {
-    cursor: auto;
-  }
+  body { cursor: auto; }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Crimson Text', serif;
-  font-weight: 400;
-  line-height: 1.1;
+/* Headlines — Jakarta Sans Bold (fallback until Avant Garde Gothic kit is added) */
+h1, h2, h3, h4 {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.0;
   letter-spacing: -0.02em;
 }
 
+/* Utility classes */
+.font-display {
+  font-family: itc-avant-garde-gothic-pro, var(--font-jakarta), sans-serif;
+  font-weight: 700;
+}
+
+.font-sans {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+}
+
 .font-mono {
-  font-family: 'DepartureMono', ui-monospace, monospace;
+  font-family: var(--font-departure), ui-monospace, monospace;
 }
 
 .text-balance {
   text-wrap: balance;
 }
 
-.overflow-hidden {
-  overflow: hidden;
-}
-
 @keyframes marquee {
-  0% { transform: translateX(0%); }
+  0%   { transform: translateX(0%); }
   100% { transform: translateX(-100%); }
 }
 
 .animate-marquee {
-  animation: marquee 24s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
     animation-play-state: paused;
   }
-  
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

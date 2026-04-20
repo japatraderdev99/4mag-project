@@ -6,11 +6,11 @@ import { motion, useMotionValue, useSpring } from 'motion/react'
 export default function CustomCursor() {
   const [mounted, setMounted] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
-  
+
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
-  
-  const springConfig = { damping: 25, stiffness: 700 }
+
+  const springConfig = { damping: 28, stiffness: 650 }
   const cursorXSpring = useSpring(cursorX, springConfig)
   const cursorYSpring = useSpring(cursorY, springConfig)
 
@@ -18,19 +18,21 @@ export default function CustomCursor() {
     setMounted(true)
 
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 16)
-      cursorY.set(e.clientY - 16)
+      cursorX.set(e.clientX - 14)
+      cursorY.set(e.clientY - 14)
     }
 
     const handleMouseEnter = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      if (target.hasAttribute('data-cursor-magnetic')) {
+      // Guard: e.target may be a text node or SVG node — check it's an Element
+      if (e.target instanceof Element && e.target.closest('[data-cursor-magnetic]')) {
         setIsHovered(true)
       }
     }
 
-    const handleMouseLeave = () => {
-      setIsHovered(false)
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.target instanceof Element && e.target.closest('[data-cursor-magnetic]')) {
+        setIsHovered(false)
+      }
     }
 
     window.addEventListener('mousemove', moveCursor)
@@ -49,21 +51,18 @@ export default function CustomCursor() {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 bg-paper rounded-full pointer-events-none z-[9999] hidden lg:block"
+        className="fixed top-0 left-0 w-7 h-7 rounded-full pointer-events-none z-[9999] hidden lg:block"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
-          mixBlendMode: 'difference'
+          backgroundColor: 'var(--paper)',
+          mixBlendMode: 'difference',
         }}
-        animate={{
-          scale: isHovered ? 1.5 : 1
-        }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        animate={{ scale: isHovered ? 1.6 : 1 }}
+        transition={{ type: 'spring', stiffness: 320, damping: 28 }}
       />
       <style jsx global>{`
-        @media (pointer: coarse) {
-          body { cursor: auto !important; }
-        }
+        @media (pointer: coarse) { body { cursor: auto !important; } }
       `}</style>
     </>
   )

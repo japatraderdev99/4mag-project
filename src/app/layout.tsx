@@ -5,6 +5,41 @@ import LenisProvider from "@/components/providers/LenisProvider";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { Analytics } from "@vercel/analytics/react";
 
+// Plus Jakarta Sans — brand body/copy font (local TTF from IDV/Fontes)
+const jakartaSans = localFont({
+  src: [
+    {
+      path: "../../public/fonts/PlusJakartaSans-ExtraLight.ttf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/PlusJakartaSans-ExtraLightItalic.ttf",
+      weight: "200",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/PlusJakartaSans-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/PlusJakartaSans-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/PlusJakartaSans-BoldItalic.ttf",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-jakarta",
+  display: "swap",
+  fallback: ["system-ui", "sans-serif"],
+});
+
+// DepartureMono — small labels / mono accents
 const departureMono = localFont({
   src: "../../public/fonts/DepartureMono-Regular.woff2",
   variable: "--font-departure",
@@ -57,8 +92,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${departureMono.variable} h-full`}
+      className={`${jakartaSans.variable} ${departureMono.variable} h-full`}
     >
+      {/*
+        ITC Avant Garde Gothic Pro — display/headline font (Adobe Fonts / Typekit)
+        Add your kit <link> here once the Typekit kit ID is available:
+        <head>
+          <link rel="stylesheet" href="https://use.typekit.net/YOUR_KIT_ID.css" />
+        </head>
+        Then use: font-family: itc-avant-garde-gothic-pro, sans-serif; font-weight: 700;
+      */}
       <body className="min-h-full overflow-x-hidden">
         <LenisProvider>
           <CustomCursor />

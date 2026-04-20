@@ -9,29 +9,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0D0D0D',
-        paper: '#F0EBE0',
-        red: '#C8001E',
-        muted: '#5A5A5A',
+        ink:   '#1A1714',
+        paper: '#E9E3D6',
+        sand:  '#A09688',
+        red:   '#7D2218',
+        muted: '#7A7265',
       },
       fontFamily: {
-        display: ['var(--font-basteleur)', 'serif'],
-        body: ['var(--font-switzer)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-departure)', 'ui-monospace', 'monospace'],
+        // ITC Avant Garde Gothic Pro (Adobe Fonts) — add Typekit kit when available
+        display: ['itc-avant-garde-gothic-pro', 'var(--font-jakarta)', 'sans-serif'],
+        // Plus Jakarta Sans — body/copy (local TTF)
+        sans:    ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+        body:    ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+        // DepartureMono — small labels
+        mono:    ['var(--font-departure)', 'ui-monospace', 'monospace'],
       },
       fontSize: {
-        'display-xl': 'clamp(5rem, 18vw, 22rem)',
-        'display-lg': 'clamp(3rem, 10vw, 12rem)',
+        'display-xl': 'clamp(3.5rem, 12vw, 10rem)',
+        'display-lg': 'clamp(2rem, 7vw, 6rem)',
+        'display-sm': 'clamp(1.4rem, 4vw, 3rem)',
       },
       letterSpacing: {
-        'widest': '0.25em',
+        widest: '0.25em',
+        label:  '0.18em',
       },
       animation: {
-        'marquee': 'marquee 24s linear infinite',
+        marquee: 'marquee 28s linear infinite',
       },
       keyframes: {
         marquee: {
-          '0%': { transform: 'translateX(0%)' },
+          '0%':   { transform: 'translateX(0%)' },
           '100%': { transform: 'translateX(-100%)' },
         },
       },
