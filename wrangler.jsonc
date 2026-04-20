@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "4mag-web",
+  "name": "4mag-project",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-04-20",
   "compatibility_flags": ["nodejs_compat"],
@@ -14,7 +14,7 @@
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "4mag-web"
+      "service": "4mag-project"
     }
   ],
   "r2_buckets": [
