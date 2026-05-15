@@ -92,8 +92,9 @@ export async function POST(request: NextRequest) {
     // Save to D1 (Cloudflare database) — works in production only
     try {
       const { env } = await getCloudflareContext({ async: true })
-      const db = (env as Record<string, unknown>).DB as D1Database | undefined
-      if (db) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const db = (env as Record<string, any>).DB
+      if (db && typeof db.prepare === 'function') {
         await db.prepare(
           'INSERT INTO subscribers (email, name, ip, created_at) VALUES (?, ?, ?, datetime("now")) ON CONFLICT(email) DO NOTHING'
         ).bind(email, name || null, clientIP).run()
