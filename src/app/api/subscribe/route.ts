@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { subscribeSchema } from '@/lib/schemas/subscribe'
 import { forwardToESP } from '@/lib/email/forwardToESP'
+import { getCloudflareContext } from '@opennextjs/cloudflare'
 
 // In-memory rate limiting store
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>()
@@ -88,9 +89,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true })
     }
 
+    // Save to D1 (Cloudflare database) — works in production only
+    try {
+      const { env } = await getCloudflareContext({ async: true })
+      const db = (env as Record<string, unknown>).DB as D1Database | undefined
+      if (db) {
+        await db.prepare(
+          'INSERT INTO subscribers (email, name, ip, created_at) VALUES (?, ?, ?, datetime("now")) ON CONFLICT(email) DO NOTHING'
+        ).bind(email, name || null, clientIP).run()
+      }
+    } catch {
+      // D1 not available in dev — continue silently
+    }
+
     // Forward to ESP
     await forwardToESP({ name, email })
-    
+
     console.log('✅ Subscription successful:', { ip: clientIP, email })
     
     return NextResponse.json({ success: true })

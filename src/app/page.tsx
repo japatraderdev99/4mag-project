@@ -1,17 +1,17 @@
+import Nav from "@/components/sections/Nav"
 import Hero from "@/components/sections/Hero"
-import Marquee from "@/components/ui/Marquee"
-import Gallery from "@/components/sections/Gallery"
+import About from "@/components/sections/About"
 import Subscribe from "@/components/sections/Subscribe"
 import Footer from "@/components/sections/Footer"
 
 export default function Home() {
   return (
-    <div className="overflow-x-hidden">
+    <main className="overflow-x-hidden bg-white">
+      <Nav />
       <Hero />
-      <Marquee />
-      <Gallery />
+      <About />
       <Subscribe />
       <Footer />
-    </div>
+    </main>
   )
 }

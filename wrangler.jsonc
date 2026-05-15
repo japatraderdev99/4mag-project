@@ -7,6 +7,10 @@
   "observability": {
     "enabled": true
   },
+  "routes": [
+    { "pattern": "4mag.art",     "custom_domain": true },
+    { "pattern": "www.4mag.art", "custom_domain": true }
+  ],
   "assets": {
     "binding": "ASSETS",
     "directory": ".open-next/assets"

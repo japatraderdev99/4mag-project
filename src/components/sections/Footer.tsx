@@ -2,68 +2,95 @@ import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer className="bg-ink text-muted border-t border-paper/6 py-14 px-6">
-      <div className="max-w-5xl mx-auto">
+    <footer className="bg-paper text-ink py-14 px-8 md:px-12">
+      <div className="mx-auto max-w-[1100px]">
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-[auto_1fr_1fr_auto] gap-10 md:gap-16 items-start">
 
-          {/* Logo + tagline */}
-          <div className="space-y-4">
-            <Image
-              src="/IDV/4MAG LOGO WHITE.png"
-              alt="4MAG Logo"
-              width={140}
-              height={40}
-              className="opacity-60 hover:opacity-90 transition-opacity"
-            />
-            <p className="text-xs font-[200] text-paper/25 leading-relaxed max-w-[160px]">
-              In a world that scrolls,<br />we print.
-            </p>
+          {/* Logo */}
+          <div className="col-span-2 md:col-span-1">
+            <a href="/" aria-label="4MAG home">
+              <Image
+                src="/IDV/4MAG LOGO BLACK.png"
+                alt="4MAG"
+                width={140}
+                height={54}
+                className="h-[54px] w-auto"
+              />
+            </a>
           </div>
 
-          {/* Center */}
-          <div className="font-mono text-[9px] uppercase tracking-[0.22em] space-y-2.5 lg:text-center">
-            <div className="flex items-center gap-2 flex-wrap lg:justify-center text-paper/60">
-              <span>4MAG®</span>
-              <span className="text-paper/20">·</span>
-              <span className="text-sand/60">4mag.art</span>
-            </div>
-            <div className="flex items-center gap-2 flex-wrap lg:justify-center">
-              <a
-                href="https://instagram.com/fourmagazine"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-paper transition-colors"
-              >
-                @fourmagazine
-              </a>
-              <span className="text-paper/20">·</span>
-              <span>São Paulo</span>
-              <span className="text-paper/20">·</span>
-              <span>Berlin</span>
-              <span className="text-paper/20">·</span>
-              <span>Colombia</span>
-            </div>
-            <div className="text-red/50">[ Print is not dead ]</div>
+          {/* Column: 4MAG */}
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-ink mb-4">4MAG</p>
+            <ul className="space-y-2.5">
+              <li>
+                <a href="#about" className="text-[12px] font-normal text-ink/55 hover:text-ink transition-colors duration-200">
+                  About us
+                </a>
+              </li>
+              <li>
+                <a href="mailto:hello@4mag.art" className="text-[12px] font-normal text-ink/55 hover:text-ink transition-colors duration-200">
+                  Contact
+                </a>
+              </li>
+            </ul>
           </div>
 
-          {/* Right */}
-          <div className="lg:text-right space-y-2 font-mono text-[9px] uppercase tracking-[0.2em] text-paper/18">
-            <p>Art Printed Magazine</p>
-            <p>Cannabis Culture × Street Art</p>
-            <p>Underground Print Movement</p>
-            <p className="text-sand/35">(2026)</p>
+          {/* Column: Feature Word */}
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-ink mb-4">Feature Word</p>
+            <ul className="space-y-2.5">
+              <li>
+                <a href="#gallery" className="text-[12px] font-normal text-ink/55 hover:text-ink transition-colors duration-200">
+                  Editions
+                </a>
+              </li>
+              <li>
+                <a href="#gallery" className="text-[12px] font-normal text-ink/55 hover:text-ink transition-colors duration-200">
+                  Exhibitions
+                </a>
+              </li>
+              <li>
+                <a href="#gallery" className="text-[12px] font-normal text-ink/55 hover:text-ink transition-colors duration-200">
+                  Prints
+                </a>
+              </li>
+            </ul>
           </div>
+
+          {/* Social circles */}
+          <div className="col-span-2 md:col-span-1 flex items-start gap-3">
+            <a
+              href="https://instagram.com/fourmagazine"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="4MAG on Instagram"
+              className="w-9 h-9 rounded-full bg-ink flex items-center justify-center hover:bg-ink/70 transition-colors duration-200"
+              data-cursor-magnetic
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="#E9E3D6" strokeWidth="1.8"/>
+                <circle cx="12" cy="12" r="4.5" stroke="#E9E3D6" strokeWidth="1.8"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="#E9E3D6"/>
+              </svg>
+            </a>
+            <a
+              href="https://linktr.ee/fourmagazine"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="4MAG Linktree"
+              className="w-9 h-9 rounded-full bg-ink flex items-center justify-center hover:bg-ink/70 transition-colors duration-200"
+              data-cursor-magnetic
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="#E9E3D6" strokeWidth="1.8" strokeLinecap="round"/>
+              </svg>
+            </a>
+          </div>
+
         </div>
 
-        <div className="border-t border-paper/6 pt-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-paper/18">
-            © 2026 4MAG. Limited Edition #001
-          </p>
-          <p className="text-xs font-[200] text-paper/18 italic">
-            "La cultura no se observa; se recorre."
-          </p>
-        </div>
       </div>
     </footer>
   )
